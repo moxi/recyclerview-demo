@@ -7,6 +7,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import rcgonzalezf.org.recyclerviewdemo.adapters.MainModelAdapter;
+import rcgonzalezf.org.recyclerviewdemo.models.MainModel;
+
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
@@ -17,10 +23,23 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.main_recycler_view);
+        setupRecyclerView();
 
+    }
+
+    private void setupRecyclerView() {
         final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        MainModelAdapter adapter = new MainModelAdapter(createMainModelItems(), this);
+        mRecyclerView.setAdapter(adapter);
         mRecyclerView.setLayoutManager(layoutManager);
+    }
+
+    private List<MainModel> createMainModelItems() {
+        List<MainModel> mainModels = new ArrayList<>();
+        mainModels.add(new MainModel("Using a simple Array, vertical."));
+        mainModels.add(new MainModel("Using a simple Array, horizontal."));
+        return mainModels;
     }
 
     @Override
